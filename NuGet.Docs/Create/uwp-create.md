@@ -13,23 +13,6 @@ If you target netcore45 already, and you don’t need to take advantage of anyth
 
 In this case you need to add the uap10.0 TxM to your package. Create a new directory in your package and add the assembly that has been compiled to work with Windows 10 to that directory.
 
-## I don’t need Windows 10 specific APIs, but want new .NET features or don’t have netcore45 already  ##
-
-In this case you would add the new dotnet TxM to your package. Unlike other TxMs dotnet doesn’t imply a surface area or platform. It is stating that your package will work on any platform that your dependencies work on. When building a package with the dotnet TxM you are likely to have many more TxM specific dependencies in your NuSpec, as you will need to define the BCL packages you depend on, such System.Text, System.Xml, etc. The locations that those dependencies work on define where your package will work.
-
-### How do I find out my dependencies?
-
-There are two ways to figure out which dependencies to list:
-
-1. Use `ILDasm` to look at your dll to see what assemblies are actually needed at runtime. Then determine which NuGet package they each come from. This is the hard way.
-2. Use the [NuSpec Dependency Generator](https://github.com/onovotny/ReferenceGenerator) **3rd party** tool. The tool automates the process and updates your .nuspec file with the depependant packages on build. It is available via a NuGet package, [NuSpec.ReferenceGenerator](https://www.nuget.org/packages/NuSpec.ReferenceGenerator/).
-
-See the project.json document for details on supports and includes features that both help in the creation of a package that support the dotnet TxM.
-
-**If your package is intended to work with the new PCL project, we highly recommend to create a dotnet folder, to avoid warnings and potential compatibility issues.**
-
-
-
 ## Directory Structure  ##
 
 NuGet packages using the new format have the following well-known directories and behaviors:
@@ -66,7 +49,7 @@ MSBuild knows to look for these two files and automatically imports them near th
 
 ## Lib and Ref  ##
 
-The behavior of the Lib directory hasn't changed significantly in NuGet v3. However, all assemblies must be within sub-folders named after a TxM, and can no longer be placed directly under the lib folder. A TxM is the name of a platform that a given asset in a package is supposed to work for. Logically these are an extension of the Target Framework Monikers (TFM) e.g. *net45*, *net46*, *netcore50*, and *dnxcore50* are all examples of TxMs. We use a new term TxM because a TxM can refer to a framework (TFM) as well as other platform specific surface area. For example the UWP TxM (UAP10.0) represents the .NET surface area as well as the Windows surface area for UWP applications.
+The behavior of the Lib directory hasn't changed significantly in NuGet v3. However, all assemblies must be within sub-folders named after a TxM, and can no longer be placed directly under the lib folder. A TxM is the name of a platform that a given asset in a package is supposed to work for. Logically these are an extension of the Target Framework Monikers (TFM) e.g. *net45*, *net46*, *netcore50*, *uap10.0* and *dnxcore50* are all examples of TxMs. We use a new term TxM because a TxM can refer to a framework (TFM) as well as other platform specific surface area. For example the UWP TxM (UAP10.0) represents the .NET surface area as well as the Windows surface area for UWP applications.
 
 An example lib structure:
 
@@ -75,7 +58,10 @@ An example lib structure:
     │       MyLibrary.dll
     │
     └───wp81
-            MyLibrary.dll
+    |        MyLibrary.dll
+    |
+    └───uap10.0
+             MyLibrary.dll
 
 The lib folder contains assemblies that will be used at runtime. For most packages a directory under lib for each of the target TxMs is all that is required.
 
