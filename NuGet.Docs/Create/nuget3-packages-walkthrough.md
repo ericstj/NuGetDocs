@@ -6,12 +6,12 @@ This is the simplest type of package.  You wish to ship a portable class library
 
 The below sample illustrates the dependencies of a project.json based PCL targeting .NET Framework 4.6, Windows Universal 10.0, and ASP.NET Core 5.0.  The dependency section can be generated using the third party [NuSpec.ReferenceGenerator](https://www.nuget.org/packages/NuSpec.ReferenceGenerator/) package.
 ```
-<depenedencies>
+<dependencies>
   <group targetFramework="dotnet">
     <dependency id="System.IO" version="4.0.10"/>
     <dependency id="System.Runtime" version="4.0.20"/>
   </group>
-</depenedencies>
+</dependencies>
 
 lib/dotnet/System.Banana.dll
 ```
