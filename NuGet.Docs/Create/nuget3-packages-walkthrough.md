@@ -6,12 +6,12 @@ This is the simplest type of package.  You wish to ship a portable class library
 
 The below sample illustrates the dependencies of a project.json based PCL targeting .NET Framework 4.6, Windows Universal 10.0, and ASP.NET Core 5.0.  The dependency section can be generated using the third party [NuSpec.ReferenceGenerator](https://www.nuget.org/packages/NuSpec.ReferenceGenerator/) package.
 ```
-<depenedencies>
+<dependencies>
   <group targetFramework="dotnet">
     <dependency id="System.IO" version="4.0.10"/>
     <dependency id="System.Runtime" version="4.0.20"/>
   </group>
-</depenedencies>
+</dependencies>
 
 lib/dotnet/System.Banana.dll
 ```
@@ -24,7 +24,7 @@ To avoid this problem we can add empty dependency groups for all of the platform
 
 In order to also support installation into packages.config based portable projects NuGet requires `portable-` folder and dependency group.  The dependency group is needed for the same reason as above, the file is needed because NuGet does not treat any `portable-` targets as compatible with `dotnet`.
 ```
-<depenedencies>
+<dependencies>
   <group targetFramework="dotnet">
     <dependency id="System.IO" version="4.0.0"/>
     <dependency id="System.Runtime" version="4.0.0"/>
@@ -42,7 +42,7 @@ In order to also support installation into packages.config based portable projec
   <group targetFramework="wpa81"/>
   <!-- required for pcl projects that don't use project.json with dotnet -->
   <group targetFramework="portable-netcore45+net45+wp8+wpa8"/>
-</depenedencies>
+</dependencies>
 
 lib/portable-netcore45+net45+wp8+wpa8/System.Banana.dll
 lib/dotnet/System.Banana.dll
@@ -132,7 +132,7 @@ Build A targeting .NET Framework 4.5, Windows 8, Windows Phone 8.1 and Windows P
 Build B targeting .NET Framework 4.6, Windows Universal 10.0, and ASP.NET Core 5.0, using MemoryStream.TryGetBuffer().
 
 ```
-<depenedencies>
+<dependencies>
   <group targetFramework="dotnet">
     <dependency id="System.IO" version="4.0.10"/>
     <dependency id="System.Runtime" version="4.0.0"/>
@@ -149,7 +149,7 @@ Build B targeting .NET Framework 4.6, Windows Universal 10.0, and ASP.NET Core 5
   <group targetFramework="wp8"/>
   <group targetFramework="wpa81"/>
   <group targetFramework="portable-netcore45+net45+wp8+wpa8"/>
-</depenedencies>
+</dependencies>
 
 lib/portable-netcore45+net45+wp8+wpa8/System.Banana.dll (build A)
 lib/netcore45/System.Banana.dll (build A, required since dotnet would take precedence over portable-*)
